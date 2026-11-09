@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b2545">
+  <meta name="description" content="Simulador prático de consumo de energia residencial: descubra quais aparelhos pesam mais na sua conta de luz e aprenda a economizar.">
+  <title>Conscientização e Redução de Desperdício Elétrico</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#simulador">Ir para o simulador</a>
+
+  <!-- Cabeçalho -->
+  <header class="header">
+    <div class="container">
+      <h1>Conscientização e Redução de Desperdício Elétrico</h1>
+      <p class="subtitle">Simulador Prático de Consumo de Energia Residencial</p>
+      <span class="seal">🎓 Iniciativa de Extensão Universitária - Engenharia de Software</span>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Banner informativo -->
+    <aside class="banner" role="note">
+      <span class="banner-icon" aria-hidden="true">💡</span>
+      <p>
+        <strong>Dica rápida:</strong> a tarifa média usada nos cálculos (<strong>R$ 0,75 por kWh</strong>)
+        tem como referência a região de São Paulo e as distribuidoras de energia locais, já com impostos
+        e bandeira verde padrão. Sua conta pode variar: ajuste o valor abaixo com o preço do kWh da sua fatura.
+      </p>
+    </aside>
+
+    <!-- Tarifa -->
+    <section class="panel tariff" aria-labelledby="t-tarifa">
+      <h2 id="t-tarifa" class="visually-hidden">Tarifa de energia</h2>
+      <label for="tarifa" class="tariff-label">Tarifa de energia (R$ por kWh)</label>
+      <div class="tariff-row">
+        <div class="input-prefix">
+          <span aria-hidden="true">R$</span>
+          <input id="tarifa" type="number" inputmode="decimal" min="0" step="0.01" value="0.75">
+        </div>
+        <button type="button" id="resetTarifa" class="btn btn-ghost">Restaurar R$ 0,75</button>
+      </div>
+    </section>
+
+    <!-- Simulador -->
+    <section id="simulador" class="section" aria-labelledby="t-simulador">
+      <h2 id="t-simulador">⚡ 1. Escolha seus aparelhos</h2>
+      <p class="lead">Ative os aparelhos que você usa em casa e informe a quantidade e o tempo de uso por dia.</p>
+      <div id="aparelhos" class="grid"></div>
+      <button type="button" id="limpar" class="btn btn-ghost btn-block">Limpar seleção</button>
+    </section>
+
+    <!-- Resultados -->
+    <section id="resultados" class="section results" aria-labelledby="t-resultados">
+      <h2 id="t-resultados">📊 2. Seu resultado em tempo real</h2>
+
+      <div class="stats" aria-live="polite">
+        <div class="stat">
+          <span class="stat-label">Consumo estimado</span>
+          <strong class="stat-value" id="totalKwh">0,0</strong>
+          <span class="stat-unit">kWh/mês</span>
+        </div>
+        <div class="stat stat-cost">
+          <span class="stat-label">Custo estimado</span>
+          <strong class="stat-value" id="totalCusto">R$ 0,00</strong>
+          <span class="stat-unit">por mês</span>
+        </div>
+      </div>
+      <p id="detalheCusto" class="muted"></p>
+
+      <h3>🔥 Maiores Vilões do seu Orçamento</h3>
+      <p id="vazio" class="empty">Ative pelo menos um aparelho acima para ver quais pesam mais na sua conta.</p>
+      <ol id="viloes" class="villains"></ol>
+      <div id="dicaVilao" class="callout" hidden></div>
+
+      <p class="disclaimer">
+        Valores estimados com base em 30 dias por mês e na potência informada. O consumo real depende
+        dos seus hábitos, do estado e da eficiência dos equipamentos.
+      </p>
+    </section>
+
+    <!-- Dicas educativas -->
+    <section id="dicas" class="section" aria-labelledby="t-dicas">
+      <h2 id="t-dicas">💚 Dicas de eficiência energética <span class="ods">ODS 12</span></h2>
+      <p class="lead">
+        O ODS 12 propõe consumo e produção responsáveis. Pequenas atitudes diárias reduzem o desperdício,
+        o impacto ambiental e o valor da conta.
+      </p>
+      <div class="tips">
+        <article class="tip">
+          <span class="tip-icon" aria-hidden="true">🚿</span>
+          <h3>Chuveiro: banho inteligente</h3>
+          <p>Reduza o tempo do banho, use a posição "verão" quando o clima permitir e feche o registro enquanto se ensaboa.</p>
+        </article>
+        <article class="tip">
+          <span class="tip-icon" aria-hidden="true">🧊</span>
+          <h3>Geladeira: cuidado constante</h3>
+          <p>Verifique a borracha de vedação, deixe espaço atrás do aparelho, não guarde alimentos quentes e evite abrir a porta sem necessidade.</p>
+        </article>
+        <article class="tip">
+          <span class="tip-icon" aria-hidden="true">🔌</span>
+          <h3>Stand-by: o gasto silencioso</h3>
+          <p>TVs, carregadores e outros equipamentos consomem energia mesmo "desligados". Use régua com interruptor ou tire da tomada.</p>
+        </article>
+        <article class="tip">
+          <span class="tip-icon" aria-hidden="true">❄️</span>
+          <h3>Ar-condicionado e iluminação</h3>
+          <p>Mantenha o ar entre 23 °C e 24 °C, limpe os filtros, prefira lâmpadas LED e aproveite a luz natural.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Relógio medidor -->
+    <section class="panel meter" aria-labelledby="t-medidor">
+      <h2 id="t-medidor">🔢 Como ler o relógio medidor de luz</h2>
+      <p>
+        O medidor de ponteiros tem quatro mostradores, um para cada casa do número em kWh:
+        milhar, centena, dezena e unidade.
+      </p>
+
+      <div class="dials" role="img" aria-label="Exemplo de leitura: mostradores 2, 7, 4 e 3, resultando em 2.743 kWh">
+        <div class="dial"><span class="dial-digit">2</span><small>milhar</small></div>
+        <div class="dial"><span class="dial-digit">7</span><small>centena</small></div>
+        <div class="dial"><span class="dial-digit">4</span><small>dezena</small></div>
+        <div class="dial"><span class="dial-digit">3</span><small>unidade</small></div>
+      </div>
+      <p class="dials-caption">Exemplo: leitura de <strong>2.743 kWh</strong></p>
+
+      <ol class="steps">
+        <li>Leia da esquerda para a direita, anotando o número indicado em cada mostrador.</li>
+        <li>Os ponteiros giram em sentidos alternados (horário e anti-horário): siga a ordem dos números impressa em cada mostrador.</li>
+        <li>Se o ponteiro estiver entre dois números, anote sempre o <strong>menor</strong> (o último que ele passou). Entre 9 e 0, anote 9.</li>
+        <li>Se o ponteiro estiver exatamente sobre um número, olhe o mostrador à direita: se ele ainda não passou pelo zero, anote o número anterior.</li>
+        <li>Consumo do período = leitura atual − leitura anterior. Exemplo: 2.743 − 2.513 = <strong>230 kWh</strong>. Compare com a estimativa do simulador!</li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="footer">
+    <div class="container">
+      <p>Desenvolvido por <strong>Lucas Grem Silva</strong> | Bacharelado em Engenharia de Software (Cruzeiro do Sul Virtual)</p>
+      <p class="footer-small">Projeto de extensão universitária alinhado ao ODS 12 da ONU.</p>
+    </div>
+  </footer>
+
+  <!-- Barra fixa com o total (aparece enquanto os resultados estão fora da tela) -->
+  <div id="barra" class="sticky-bar" hidden>
+    <div>
+      <span class="sticky-label">Estimativa mensal</span>
+      <strong id="barraValor">R$ 0,00</strong>
+    </div>
+    <a href="#resultados" class="btn btn-green">Ver detalhes</a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
